@@ -5,7 +5,6 @@
 # 
 # contractions.py was written by dipanjanS: https://github.com/dipanjanS/practical-machine-learning-with-python/
 
-import wcwidth
 import nltk, re, unicodedata
 from contractions import CONTRACTION_MAP
 from nltk.corpus import stopwords
