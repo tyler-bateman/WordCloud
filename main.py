@@ -5,11 +5,19 @@
 # 
 # contractions.py was written by dipanjanS: https://github.com/dipanjanS/practical-machine-learning-with-python/
 
+import wcwidth
 import nltk, re, unicodedata
 from contractions import CONTRACTION_MAP
 from nltk.corpus import stopwords
+import numpy as np
+import matplotlib.pyplot as plt
+from PIL import Image
+from wordcloud import WordCloud
+
+
 
 nltk.download('stopwords')
+nltk.download('punkt')
 
 # Get data for the given character
 # Tutorial code modified to accommodate characters with multiple names, eg. Elastigirl and Helen
@@ -25,7 +33,6 @@ def get_char_lines(charNames):
     print(charNames[0], 'has ', len(output), 'lines')
     return output
 
-get_char_lines(("Helen", "Elastigirl"))
 
 
 def expand_contractions(text, contraction_mapping=CONTRACTION_MAP):
@@ -45,6 +52,7 @@ def expand_contractions(text, contraction_mapping=CONTRACTION_MAP):
     return expanded_text
 
 def clean_lines(lines):
+    text = ""
     for line in lines:
         re.sub(r'.*:','', line)
         re.sub('[\(\[].*?[\)\]]', ' ', line)
@@ -52,10 +60,19 @@ def clean_lines(lines):
         line = expand_contractions(line)
         line.lower()
         pattern = r'[^a-zA-Z0-9\s]'
-        re.sub(pattern, '', text)
+        re.sub(pattern, '', line)
         stopword_list = stopwords.words('english')
-        tokens = nltk.word_tokenize(text)
+        tokens = nltk.word_tokenize(line)
         tokens = [token.strip() for token in tokens]
-        ' '.join([token for token in tokens if token not in stopword_list])
+        line = ' '.join([token for token in tokens if token not in stopword_list])
+        text = text + ' ' + line
+    return text
         
+def generate_cloud(names, image):
+    char_mask = np.array(Image.open(image))
+#    image_colors = ImageColorGenerator(char_mask)
+    text = clean_lines(get_char_lines(names))
+    wc = WordCloud(background_color="white", max_words = 220, width = 400, height = 400, mask=char_mask, random_state=1).generate(text)
+    plt.imshow(wc)
 
+generate_cloud(('Mr. Incredible', 'Bob'), 'images/MrIncredible.jpg') 
