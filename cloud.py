@@ -78,6 +78,6 @@ def generate_cloud(names, image):
     text = clean_lines(get_char_lines(names))
     wc = WordCloud(background_color="white", max_words = 220, width = 400, height = 400, mask=char_mask, random_state=1).generate(text)
     plt.imshow(wc.recolor(color_func=image_colors))
-    plt.show()
+    return wc
 
 
