@@ -52,7 +52,6 @@ def expand_contractions(text, contraction_mapping=CONTRACTION_MAP):
     expanded_text = contractions_pattern.sub(expand_match, text)
     expanded_text = re.sub("'", "", expanded_text)
     return expanded_text
-expand_contractions("Don't worry I can't")
         
 
 def clean_lines(lines):
