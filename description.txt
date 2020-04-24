@@ -1,0 +1,5 @@
+While writing the code for this project, I followed the tutorial at https://towardsdatascience.com/creating-word-clouds-with-python-f2077c8de5cc. I also referenced the wordcloud documentation at http://amueller.github.io/word_cloud/ for information on installing the necessary libraries. The data set was taken from https://transcripts.fandom.com/wiki/The_Incredibles. 
+
+I made one small change to make the tutorial work for my data set. Since The Incredibles is a superhero movie, most characters have more than one name, since they have a superhero name and an alter-ego (e.g. Elastigirl and Helen). Because of this, I had the get_char_lines method accept a tuple that contains all names for a given character.
+
+The word clouds for each major character can be found in the wordclouds folder.
